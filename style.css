@@ -1,0 +1,1159 @@
+/* ==========================================================================
+   CSS Design System for FitTrack "حديد" Web App
+   ========================================================================== */
+
+/* Variables & Base Custom Properties */
+:root {
+    --bg-main: #0b0c10;
+    --bg-sidebar: #12141c;
+    --bg-card: rgba(22, 26, 37, 0.6);
+    --bg-card-hover: rgba(28, 33, 47, 0.85);
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-focus: #ff6a00;
+    
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    
+    /* Premium Gradients */
+    --accent-gradient: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #ff8c3a 0%, #ff2a92 100%);
+    --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --rest-gradient: linear-gradient(135deg, #1f4068 0%, #162447 100%);
+    --dark-glass-bg: rgba(18, 20, 26, 0.6);
+    
+    --primary-color: #ff6a00;
+    --success-color: #10b981;
+    --rest-color: #3b82f6;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+    
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+    
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme overrides (Activated via class) */
+body.light-theme {
+    --bg-main: #f4f6f9;
+    --bg-sidebar: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --bg-card-hover: rgba(255, 255, 255, 0.95);
+    --border-color: rgba(0, 0, 0, 0.08);
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    --dark-glass-bg: rgba(255, 255, 255, 0.8);
+    --shadow-md: 0 8px 24px rgba(149, 157, 165, 0.15);
+    --shadow-lg: 0 16px 32px rgba(149, 157, 165, 0.25);
+}
+
+/* Reset & Basic Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', 'Outfit', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* App Main Container */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 290px;
+    background-color: var(--bg-sidebar);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: transform var(--transition-smooth), background-color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.sidebar-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-icon {
+    width: 46px;
+    height: 46px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(238, 9, 121, 0.3);
+}
+
+.logo-icon i {
+    width: 22px;
+    height: 22px;
+}
+
+.logo-text h1 {
+    font-size: 22px;
+    font-weight: 850;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-text span {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* Sidebar navigation list */
+.days-nav {
+    flex: 1;
+    padding: 24px 16px;
+    overflow-y: auto;
+}
+
+.nav-title {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-right: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.days-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.day-tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.day-tab:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+.day-tab.active {
+    background: var(--accent-gradient);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.15);
+}
+
+.day-tab.active .day-focus {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.day-tab.active .day-num {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.day-num {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all var(--transition-fast);
+}
+
+.day-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.day-name {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.day-focus {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Style for rest day indicators */
+.day-tab.rest .day-num {
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+}
+
+.day-tab.rest.active {
+    background: var(--rest-gradient);
+    box-shadow: 0 4px 15px rgba(31, 64, 104, 0.3);
+}
+
+.sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-color);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* Main Content Styling */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 90px; /* Space for the sticky timer bar */
+}
+
+/* Header Top Bar */
+.top-header {
+    background-color: rgba(11, 12, 16, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 8px;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-badge {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.header-title h2 {
+    font-size: 20px;
+    font-weight: 750;
+    margin-top: 2px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Global Button Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn i {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.25);
+}
+
+.btn-primary:hover {
+    background: var(--accent-gradient-hover);
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.btn-icon-only {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: var(--radius-md);
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+.btn-active-workout {
+    background: var(--success-gradient) !important;
+    box-shadow: 0 4px 15px rgba(56, 239, 125, 0.25) !important;
+}
+
+/* Dashboard Content Grid */
+.content-body {
+    padding: 32px;
+    flex: 1;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* Card Styling */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(12px);
+    transition: background-color var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.card:hover {
+    background: var(--bg-card-hover);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.card-header i {
+    color: var(--primary-color);
+    width: 22px;
+    height: 22px;
+}
+
+.card-header h3 {
+    font-size: 18px;
+    font-weight: 750;
+}
+
+.card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Rest Day View Custom Card */
+.rest-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 60px 30px;
+    background: linear-gradient(135deg, rgba(31, 64, 104, 0.2) 0%, rgba(22, 26, 37, 0.6) 100%);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+.rest-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--rest-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+}
+
+.rest-icon-wrapper i {
+    width: 38px;
+    height: 38px;
+}
+
+.rest-card h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.rest-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 450px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.rest-tips {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tip-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.tip-pill i {
+    width: 16px;
+    height: 16px;
+    color: var(--rest-color);
+}
+
+/* Exercises Section Layout */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title i {
+    color: var(--primary-color);
+}
+
+.completion-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 200px;
+}
+
+.completion-text {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 700;
+    text-align: left;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-full);
+    width: 0%;
+    transition: width 0.4s ease-out;
+}
+
+/* Exercise Item Card Styling */
+.exercise-card {
+    border-radius: var(--radius-md);
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    margin-bottom: 16px;
+    transition: all var(--transition-fast);
+}
+
+.exercise-card.completed {
+    border-color: rgba(16, 185, 129, 0.3);
+    background-color: rgba(16, 185, 129, 0.01);
+}
+
+.exercise-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.exercise-title-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.exercise-badge-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.exercise-card.completed .exercise-badge-num {
+    background: var(--success-gradient);
+    color: white;
+}
+
+.exercise-titles {
+    display: flex;
+    flex-direction: column;
+}
+
+.exercise-title-ar {
+    font-size: 15px;
+    font-weight: 750;
+    color: var(--text-primary);
+}
+
+.exercise-title-en {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+}
+
+.exercise-right-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.exercise-targets {
+    font-size: 12px;
+    color: var(--primary-color);
+    font-weight: 700;
+    background-color: rgba(255, 106, 0, 0.08);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+}
+
+.exercise-card.completed .exercise-targets {
+    color: var(--success-color);
+    background-color: rgba(16, 185, 129, 0.08);
+}
+
+.exercise-chevron {
+    color: var(--text-muted);
+    transition: transform var(--transition-fast);
+}
+
+.exercise-card.expanded .exercise-chevron {
+    transform: rotate(180deg);
+}
+
+/* Exercises Sets Panel */
+.exercise-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-smooth) ease;
+}
+
+.exercise-card.expanded .exercise-details {
+    max-height: 500px;
+    border-top: 1px solid var(--border-color);
+}
+
+.exercise-details-inner {
+    padding: 20px;
+}
+
+/* Sets Log Table Styles */
+.sets-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sets-table th {
+    text-align: right;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sets-table th:last-child {
+    text-align: center;
+}
+
+.set-row {
+    transition: background-color var(--transition-fast);
+}
+
+.set-row:hover {
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+.set-row.completed-row {
+    background-color: rgba(16, 185, 129, 0.02);
+}
+
+.set-row td {
+    padding: 10px 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.set-num-col {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.set-target-col {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.set-input-col input {
+    width: 70px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.set-input-col input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.unit-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-right: 4px;
+}
+
+.set-check-col {
+    text-align: center;
+}
+
+/* Custom Checkbox Design */
+.checkbox-container {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    width: 26px;
+    height: 26px;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 26px;
+    width: 26px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--text-muted);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background: var(--success-gradient);
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.checkmark:after {
+    content: "";
+    display: none;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Checkbox locked state before clicking 'Start Workout' */
+.checkbox-container.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Protein Calculator styling */
+.calc-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.input-group input, .input-group select {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.input-group input:focus, .input-group select:focus {
+    border-color: var(--border-focus);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.calc-result {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(255, 106, 0, 0.05) 0%, rgba(238, 9, 121, 0.05) 100%);
+    border: 1px solid rgba(255, 106, 0, 0.15);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.result-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-val {
+    font-size: 36px;
+    font-weight: 850;
+    line-height: 1.1;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.result-lbl {
+    font-size: 12px;
+    font-weight: 750;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.protein-sources h4 {
+    font-size: 13px;
+    font-weight: 750;
+    margin-bottom: 12px;
+}
+
+.sources-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sources-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+}
+
+.sources-list li span {
+    color: var(--text-secondary);
+}
+
+.sources-list li strong {
+    color: var(--success-color);
+    font-weight: 700;
+}
+
+/* Stats Card Panel */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.stat-box {
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 26px;
+    font-weight: 800;
+    display: block;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Tips Carousel styles */
+.tips-carousel {
+    min-height: 110px;
+    position: relative;
+}
+
+.tip-item {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--transition-smooth);
+    pointer-events: none;
+}
+
+.tip-item.active {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.tip-item h5 {
+    font-size: 14px;
+    font-weight: 750;
+    color: var(--primary-color);
+    margin-bottom: 6px;
+}
+
+.tip-item p {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.dot.active {
+    background-color: var(--primary-color);
+}
+
+/* Smart Rest Timer Sticky Bar */
+.rest-timer-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    width: calc(100% - 64px);
+    max-width: 600px;
+    background: var(--dark-glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-lg);
+    padding: 16px 24px;
+    z-index: 1000;
+    backdrop-filter: blur(16px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rest-timer-bar.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(120px);
+    pointer-events: none;
+}
+
+.timer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.timer-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timer-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.timer-label i {
+    width: 16px;
+    height: 16px;
+    color: var(--primary-color);
+}
+
+.timer-countdown {
+    font-size: 22px;
+    font-weight: 850;
+    font-family: 'Outfit', sans-serif;
+    color: var(--primary-color);
+}
+
+.timer-progress-container {
+    flex: 1;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    position: relative;
+}
+
+.timer-progress-fill {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-full);
+    width: 100%;
+    transition: width 0.1s linear;
+}
+
+.timer-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-timer {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-timer:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-timer i {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-timer-primary {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+.btn-timer-primary:hover {
+    box-shadow: 0 0 12px rgba(255, 106, 0, 0.3);
+}
+
+/* Responsive Grid and Sidebar adjustments */
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        position: fixed;
+        right: 0;
+        transform: translateX(100%);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: var(--shadow-lg);
+    }
+    .menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-header {
+        padding: 16px 20px;
+    }
+    .content-body {
+        padding: 20px;
+    }
+    .timer-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .timer-progress-container {
+        height: 6px;
+    }
+    .timer-info {
+        justify-content: space-between;
+    }
+    .timer-controls {
+        justify-content: flex-end;
+    }
+    .rest-timer-bar {
+        bottom: 12px;
+        width: calc(100% - 24px);
+    }
+}
+
+/* Helpers */
+.hidden {
+    display: none !important;
+}
+
+.expanded-element {
+    max-height: 1000px !important;
+}

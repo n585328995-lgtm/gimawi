@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق حديد | FitTrack - جدول التمارين التفاعلي</title>
+    
+    <!-- Meta tags for SEO & responsiveness -->
+    <meta name="description" content="تطبيق تفاعلي ذكي لمتابعة وتتبع جدول تمارين كمال الأجسام 4 أيام في الأسبوع. يشمل مؤقت راحة وحاسبة بروتين وتتبع الأوزان والتكرارات.">
+    <meta name="keywords" content="كمال أجسام, جدول تمارين, تتبع الوزن, فتنس, رياضة, تمرين 4 أيام, حاسبة بروتين, مؤقت راحة">
+    <meta name="theme-color" content="#0d0e12">
+
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;850&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS stylesheet link -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="app-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon"><i data-lucide="dumbbell"></i></span>
+                    <div class="logo-text">
+                        <h1>حَدِيد</h1>
+                        <span>FitTrack Pro</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="days-nav">
+                <p class="nav-title">أيام الأسبوع</p>
+                <ul class="days-list" id="days-tabs">
+                    <!-- Tabs will be rendered dynamically by JavaScript for flexibility, but initialized here -->
+                    <li class="day-tab active" data-day="1">
+                        <span class="day-num">1</span>
+                        <div class="day-info">
+                            <span class="day-name">اليوم الأول</span>
+                            <span class="day-focus">الصدر + الترايسبس</span>
+                        </div>
+                    </li>
+                    <li class="day-tab" data-day="2">
+                        <span class="day-num">2</span>
+                        <div class="day-info">
+                            <span class="day-name">اليوم الثاني</span>
+                            <span class="day-focus">الظهر + البايسبس</span>
+                        </div>
+                    </li>
+                    <li class="day-tab rest" data-day="3">
+                        <span class="day-num">3</span>
+                        <div class="day-info">
+                            <span class="day-name">اليوم الثالث</span>
+                            <span class="day-focus">راحة أو مشي</span>
+                        </div>
+                    </li>
+                    <li class="day-tab" data-day="4">
+                        <span class="day-num">4</span>
+                        <div class="day-info">
+                            <span class="day-name">اليوم الرابع</span>
+                            <span class="day-focus">الأرجل</span>
+                        </div>
+                    </li>
+                    <li class="day-tab" data-day="5">
+                        <span class="day-num">5</span>
+                        <div class="day-info">
+                            <span class="day-name">اليوم الخامس</span>
+                            <span class="day-focus">الأكتاف + الذراعين</span>
+                        </div>
+                    </li>
+                    <li class="day-tab rest" data-day="6">
+                        <span class="day-num">6</span>
+                        <div class="day-info">
+                            <span class="day-name">اليوم السادس</span>
+                            <span class="day-focus">راحة وإطالة</span>
+                        </div>
+                    </li>
+                    <li class="day-tab rest" data-day="7">
+                        <span class="day-num">7</span>
+                        <div class="day-info">
+                            <span class="day-name">اليوم السابع</span>
+                            <span class="day-focus">راحة واستشفاء</span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="version">الإصدار 1.0.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="menu-toggle" id="menu-toggle">
+                    <i data-lucide="menu"></i>
+                </div>
+                <div class="header-title">
+                    <span class="date-badge" id="current-date-badge">الأربعاء، 1 يوليو</span>
+                    <h2 id="workout-day-title">اليوم الأول: الصدر + الترايسبس</h2>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary btn-icon-only" id="theme-toggle-btn" title="تغيير المظهر">
+                        <i data-lucide="moon"></i>
+                    </button>
+                    <button class="btn btn-primary" id="btn-start-workout">
+                        <i data-lucide="play-circle"></i>
+                        <span>ابدأ التمرين</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-body">
+                
+                <!-- Main Grid Layout -->
+                <div class="dashboard-grid">
+                    
+                    <!-- Left Column (Exercises List & Workout View) -->
+                    <div class="grid-left">
+                        
+                        <!-- Rest Day Card (shown if current selected day is a rest day) -->
+                        <div class="card rest-card hidden" id="rest-day-view">
+                            <div class="rest-icon-wrapper">
+                                <i data-lucide="sparkles"></i>
+                            </div>
+                            <h3>يوم استشفاء وراحة</h3>
+                            <p id="rest-description">أعطِ عضلاتك وقتاً كافياً للنمو والتعافي. يمكنك القيام بمشي خفيف لمدة 30 دقيقة وتمارين إطالة بسيطة.</p>
+                            <div class="rest-tips">
+                                <div class="tip-pill"><i data-lucide="heart"></i> استشفاء عضلي</div>
+                                <div class="tip-pill"><i data-lucide="droplet"></i> شرب المياه</div>
+                                <div class="tip-pill"><i data-lucide="battery-charging"></i> إعادة شحن الطاقة</div>
+                            </div>
+                        </div>
+
+                        <!-- Exercises Section -->
+                        <div class="exercises-container" id="exercises-view">
+                            <div class="section-header">
+                                <h3 class="section-title"><i data-lucide="dumbbell"></i> تمارين اليوم</h3>
+                                <div class="completion-bar-wrapper">
+                                    <span class="completion-text" id="workout-progress-text">0 / 0 تمارين مكتملة</span>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-bar-fill" id="workout-progress-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Exercises list container filled dynamically -->
+                            <div class="exercises-list" id="exercises-list">
+                                <!-- Exercise Item Card -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column (Calculator, Quick stats & Tips) -->
+                    <div class="grid-right">
+                        
+                        <!-- Protein Calculator Card -->
+                        <div class="card protein-card">
+                            <div class="card-header">
+                                <i data-lucide="info"></i>
+                                <h3>حاسبة البروتين الذكية</h3>
+                            </div>
+                            <p class="card-desc">أدخل وزنك الحالي لمعرفة الاحتياج اليومي المناسب لبناء العضلات (1.6 - 2.2 غرام/كغ).</p>
+                            
+                            <div class="calc-inputs">
+                                <div class="input-group">
+                                    <label for="weight-input">وزنك (كغ):</label>
+                                    <input type="number" id="weight-input" min="30" max="250" value="75" placeholder="75">
+                                </div>
+                                <div class="input-group">
+                                    <label for="ratio-input">معدل البروتين (غرام/كغ):</label>
+                                    <select id="ratio-input">
+                                        <option value="1.6">1.6 غرام (حجم متوسط)</option>
+                                        <option value="1.8">1.8 غرام (بناء عضلي معتدل)</option>
+                                        <option value="2.0" selected>2.0 غرام (زيادة القوة والكتلة العضلية)</option>
+                                        <option value="2.2">2.2 غرام (استشفاء سريع وجهد عالٍ)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="calc-result">
+                                <div class="result-box">
+                                    <span class="result-val" id="protein-result">150</span>
+                                    <span class="result-lbl">غرام بروتين / يومياً</span>
+                                </div>
+                            </div>
+
+                            <!-- Protein Source suggestions -->
+                            <div class="protein-sources">
+                                <h4>مصادر مقترحة لتغطية هدفك:</h4>
+                                <ul class="sources-list">
+                                    <li><span>صدور دجاج (100غ)</span> <strong>31 غ بروتين</strong></li>
+                                    <li><span>بيض مسلوق (بيضة كبيرة)</span> <strong>6 غ بروتين</strong></li>
+                                    <li><span>علبة تونة بالماء (150غ)</span> <strong>30 غ بروتين</strong></li>
+                                    <li><span>لبن زبادي يوناني (150غ)</span> <strong>15 غ بروتين</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard Quick Stats -->
+                        <div class="card stats-card">
+                            <div class="card-header">
+                                <i data-lucide="trending-up"></i>
+                                <h3>إحصائيات هذا الأسبوع</h3>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <span class="stat-number" id="stat-completed-days">0</span>
+                                    <span class="stat-label">أيام متمرنة</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number" id="stat-total-sets">0</span>
+                                    <span class="stat-label">مجموعات مكتملة</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary btn-full-width" id="btn-reset-history">
+                                <i data-lucide="rotate-ccw"></i>
+                                <span>إعادة ضبط تتبع الأسبوع</span>
+                            </button>
+                        </div>
+
+                        <!-- Fitness Tips Card -->
+                        <div class="card tips-card">
+                            <div class="card-header">
+                                <i data-lucide="check-circle2"></i>
+                                <h3>نصائح ذهبية للنمو العضلي</h3>
+                            </div>
+                            <div class="tips-carousel">
+                                <div class="tip-item active" id="tip-1">
+                                    <h5>1. الإحماء أولاً</h5>
+                                    <p>ابدأ كل حصة تمرة بإحماء عام (كارديو خفيف) وخاص (أوزان خفيفة جداً من أول تمرين) لمدة 5-10 دقائق لتجنب الإصابات.</p>
+                                </div>
+                                <div class="tip-item" id="tip-2">
+                                    <h5>2. النوم والتعافي</h5>
+                                    <p>العضلات تنمو أثناء النوم وليس أثناء التمرين. احرص على النوم لمدة 7-9 ساعات يومياً بجودة عالية.</p>
+                                </div>
+                                <div class="tip-item" id="tip-3">
+                                    <h5>3. زيادة الوزن التدريجية (Progressive Overload)</h5>
+                                    <p>حاول دائماً زيادة الوزن قليلاً، أو زيادة تكرار واحد على الأقل، أو تحسين أدائك مقارنة بالأسبوع الماضي للنمو المستمر.</p>
+                                </div>
+                                <div class="tip-item" id="tip-4">
+                                    <h5>4. الترطيب الكافي</h5>
+                                    <p>شرب الماء الكافي (3-4 لتر يومياً) يحافظ على امتلاء الخلايا العضلية ويمنع التشنجات ويزيد طاقتك وقوتك.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-dots">
+                                <span class="dot active" data-tip="1"></span>
+                                <span class="dot" data-tip="2"></span>
+                                <span class="dot" data-tip="3"></span>
+                                <span class="dot" data-tip="4"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+        
+        <!-- Smart Rest Timer (Sticky Floating Panel at the Bottom) -->
+        <div class="rest-timer-bar hidden" id="rest-timer-panel">
+            <div class="timer-inner">
+                <div class="timer-info">
+                    <span class="timer-label"><i data-lucide="timer"></i> وقت الراحة:</span>
+                    <span class="timer-countdown" id="timer-display">01:30</span>
+                </div>
+                <div class="timer-progress-container">
+                    <div class="timer-progress-fill" id="timer-progress-fill" style="width: 100%"></div>
+                </div>
+                <div class="timer-controls">
+                    <button class="btn-timer" id="btn-timer-sub-15" title="طرح 15 ثانية">-15ث</button>
+                    <button class="btn-timer" id="btn-timer-add-15" title="إضافة 15 ثانية">+15ث</button>
+                    <button class="btn-timer btn-timer-primary" id="btn-timer-toggle" title="تشغيل / إيقاف">
+                        <i data-lucide="pause" id="timer-toggle-icon"></i>
+                    </button>
+                    <button class="btn-timer" id="btn-timer-close" title="إغلاق">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS Logic Script -->
+    <script src="app.js"></script>
+</body>
+</html>
